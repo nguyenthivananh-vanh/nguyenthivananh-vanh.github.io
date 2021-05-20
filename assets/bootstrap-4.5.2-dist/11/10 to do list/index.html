@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <h2>QUẢN LÝ SINH VIÊN</h2>
+            <form>
+                <div class="form-group row">
+                    <label for="firstName" class="col-sm-2 col-form-label">First Name: </label>
+                    <div class="col-sm-10">
+                        <input type="text" id="firstName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-2 col-form-label">Last Name: </label>
+                    <div class="col-sm-10">
+                        <input type="text" id="lastName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="phoneNumber" class="col-sm-2 col-form-label">SĐT:</label>
+                    <div class="col-sm-10">
+                        <input type="tel" id="phoneNumber">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="studentCode" class="col-sm-2 col-form-label">Mã SV</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="studentCode">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="yearOfBirth" class="col-sm-2 col-form-label">Năm sinh</label>
+                    <div class="col-sm-10">
+                        <select name="yearOfBirth" id="yearOfBirth" type="number">
+                        <option checked>1990</option>
+                        <option >1991</option>
+                        <option>1992</option>
+                        <option >1993</option>
+                        <option >1994</option>
+                        <option>1995</option>
+                        <option >1996</option>
+                        <option >1997</option>
+                        <option >1998</option>
+                        <option>1999</option>
+                        <option >2000</option>
+                        <option >2001</option>
+                        <option >2002</option>
+                        <option>2003</option>
+                        <option >2004</option>
+                        <option >2005</option>
+                        <option >2006</option>
+                        <option >2007</option>
+                        <option >2008</option>
+                        <option>2009</option>
+                        <option >2010</option>
+                        <option >2011</option>
+                        <option >2012</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="sex" class="col-sm-2 col-form-label">Giới tính</label>
+                    <div class="col-sm-10" id="sex">
+                        <input type="radio" name="gender" value="Female" checked id="s1"> Female<br>
+                        <input type="radio" name="gender" value="Male" id="s2"> Male<br>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="homeTown" class="col-sm-2 col-form-label">HomeTown</label>
+                    <div class="col-sm-10">
+                        <select name="homeTown" id="homeTown">
+                        <option >Hưng Yên</option>
+                        <option >Hà Nội</option>
+                        <option >Hải Phòng</option>
+                        <option >Quảng Ninh</option>
+                        <option>Phú Yên</option>
+                        <option >Bình Định</option>
+                        <option >Lào Cai</option>
+                    </select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick=" create()">Add</button>
+                <button type="button" class="btn btn-primary" onclick=" update()">Update</button>
+                <button type="button" class="btn btn-primary" onclick=" deleteSV()">Delete</button>
+
+            </form>
+        </div>
+
+        <div>
+            <table class="table" id="tb" border="1px solid black">
+                <thead>
+                    <tr>
+                        <td scope="col" id="c0">STT</td>
+                        <td scope="col" id="c1">Họ và tên</td>
+                        <td scope="col" id="c2">Số điện thoại</td>
+                        <td scope="col" id="c3">Email</td>
+                        <td scope="col" id="c4">Mã sinh viên</td>
+                        <td scope="col" id="c5">Năm sinh</td>
+                        <td scope="col" id="c6">Giới tính</td>
+                        <td scope="col" id="c7">Quê quán</td>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+
+    </div>
+
+
+    <script>
+        var arr = [];
+        var stt = 1;
+        var ind;
+        var nodeUl = document.getElementById('tb');
+        var local = JSON.parse(localStorage.getItem("SV")); //lấy giá trị ra khỏi localStorage
+        if (local != null) { // nếu localStorage khác rỗng thì gán mảng vào nó
+            arr = local;
+        }
+
+
+        function read() {
+            var taskString = '';
+            var arrlength = arr.length;
+            for (let i = 0; i < arrlength; i++) {
+                taskString += '<tr onclick="getItem(' + i + ')"><td> ' + arr[i].STT + ' </td> <td> ' + arr[i].fN + '</td> <td> ' + arr[i].SDT + '</td> <td>' + arr[i].Email + '</td> <td>' + arr[i].MSV + '</td> <td>' + arr[i].NS + '</td> <td>' + arr[i].GT + '</td> <td>' + arr[i].QQ + '</td></tr>';
+            }
+            nodeUl.innerHTML = taskString;
+
+        }
+
+
+        function create() {
+            var STT = stt;
+            var fN = document.getElementById("firstName").value;
+            var lN = document.getElementById("lastName").value;
+            var fN = fN + lN;
+            var SDT = document.getElementById("phoneNumber").value;
+            var Email = document.getElementById("email").value;
+            var MSV = document.getElementById("studentCode").value;
+            var NS = document.getElementById("yearOfBirth").value;
+            var GT = document.getElementById("sex");
+            if (document.getElementById('s1').checked) {
+                GT = document.getElementById('s1').value;
+            } else if (document.getElementById('s2').checked) {
+                GT = document.getElementById('s2').value;
+            }
+            var QQ = document.getElementById("homeTown").value;
+            var obj = {
+                STT,
+                fN,
+                SDT,
+                Email,
+                MSV,
+                NS,
+                GT,
+                QQ
+            }
+            arr.push(obj);
+
+            localStorage.setItem("SV", JSON.stringify(arr));
+            read();
+            stt++;
+        }
+
+        function getItem(index) {
+
+            document.getElementById("firstname").value = arr[index].fN;
+            document.getElementById("lastname").value = arr[index].fN;
+            document.getElementById("phoneNumber").value = arr[index].SDT;
+            document.getElementById("email").value = arr[index].Email;
+            document.getElementById("studentCode").value = arr[index].MSV;
+            document.getElementById("yearOfBirth").value = arr[index].NS;
+            document.getElementById("sex").value = arr[index].GT;
+            document.getElementById("homeTown").value = arr[index].QQ;
+            ind = index;
+            console.log(ind);
+        }
+
+        function update() {
+            // debugger;
+            var ht = document.getElementById("firstname").value + document.getElementById("lastname").valuezzz;
+            var sdt = document.getElementById("phoneNumber").value;
+            var mail = document.getElementById("email").value;
+            var ma = document.getElementById("studentCode").value;
+            var ns = document.getElementById("yearOfBirth").value;
+            var gt = document.getElementById("sex").value;
+            var dc = document.getElementById("homeTown").value;
+            arr[ind].SDT = sdt;
+            arr[ind].Email = mail;
+            arr[ind].MSV = ma;
+            arr[ind].NS = ns;
+            arr[ind].GT = gt;
+            arr[ind].QQ = dc;
+            read();
+            localStorage.setItem('SV', JSON.stringify(arr));
+            return;
+        }
+
+
+        // function deleteSV() {
+        //     document.getElementById("phoneNumber").value = "";
+        //     document.getElementById("email").value = "";
+        //     document.getElementById("studentCode").value = "";
+        //     document.getElementById("yearOfBirth").value = "";
+        //     document.getElementById("sex").value = "";
+        //     document.getElementById("homeTown").value = "";
+        //     arr.splice(ind, 1);
+        //     read();
+        //     localStorage.setItem('SV', JSON.stringify(arr));
+        //     return;
+        // }
+    </script>
+</body>
+
+</html>

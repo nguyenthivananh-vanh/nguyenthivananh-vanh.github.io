@@ -1,0 +1,190 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <h2>QUẢN LÝ SINH VIÊN</h2>
+            <form>
+                <div class="form-group row">
+                    <label for="firstName" class="col-sm-2 col-form-label">First Name: </label>
+                    <div class="col-sm-10">
+                        <input type="text" id="firstName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-2 col-form-label">Last Name: </label>
+                    <div class="col-sm-10">
+                        <input type="text" id="lastName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number:</label>
+                    <div class="col-sm-10">
+                        <input type="tel" id="phoneNumber">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="studentCode" class="col-sm-2 col-form-label">Student Code</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="studentCode">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="yearOfBirth" class="col-sm-2 col-form-label">Year Of Birth</label>
+                    <div class="col-sm-10">
+                        <select name="yearOfBirth" id="yearOfBirth" type="number">
+                        <option checked>1990</option>
+                        <option >1991</option>
+                        <option>1992</option>
+                        <option >1993</option>
+                        <option >1994</option>
+                        <option>1995</option>
+                        <option>1996</option>
+                        <option>1997</option>
+                        <option>1998</option>
+                        <option>1999</option>
+                        <option >2000</option>
+                        <option >2001</option>
+                        <option >2002</option>
+                        <option>2003</option>
+                        <option >2004</option>
+                        <option >2005</option>
+                        <option >2006</option>
+                        <option >2007</option>
+                        <option >2008</option>
+                        <option>2009</option>
+                        <option >2010</option>
+                        <option >2011</option>
+                        <option >2012</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="sex" class="col-sm-2 col-form-label">Sex</label>
+                    <div class="col-sm-10" id="sex">
+                        <input type="radio" name="gender" value="Female" checked id="s1"> Female<br>
+                        <input type="radio" name="gender" value="Male" id="s2"> Male<br>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="homeTown" class="col-sm-2 col-form-label">HomeTown</label>
+                    <div class="col-sm-10">
+                        <select name="homeTown" id="homeTown">
+                        <option >Hưng Yên</option>
+                        <option >Hà Nội</option>
+                        <option >Hải Phòng</option>
+                        <option >Quảng Ninh</option>
+                        <option>Phú Yên</option>
+                        <option >Bình Định</option>
+                        <option >Lào Cai</option>
+                    </select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="AddStudent()">Add</button>
+
+            </form>
+        </div>
+        <div>
+            <table class="table" id="tb" border="1px solid black">
+                <!-- <thead>
+                  <tr>
+                    <th scope="col" id="c0">STT</th>
+                    <th scope="col" id="c1">Họ và tên</th>
+                    <th scope="col" id="c2">Số điện thoại</th>
+                    <th scope="col" id="c3">Email</th>
+                    <th scope="col" id="c4">Mã sinh viên</th>
+                    <th scope="col" id="c5">Năm sinh</th>
+                    <th scope="col" id="c6">Giới tính</th>
+                    <th scope="col" id="c7">Quê quán</th>
+                  </tr>
+                </thead> -->
+                <!-- <tbody id="listStudent">
+                    
+                    
+                  
+                </tbody> -->
+            </table>
+        </div>
+
+    </div>
+    <script>
+        var arrayTask = [];
+        var stt = 1;
+        var TaskTable = document.getElementById("tb");
+
+        var b = JSON.parse(localStorage.getItem("SV")); //lấy giá trị ra khỏi localStorage
+        if (b != null) { // nếu localStorage khác rỗng thì gán mảng vào nó
+            arrayTask = b;
+        }
+        console.log(arrayTask)
+
+        function DisplayTask() {
+            debugger;
+            var StringTask = "";
+            var lengOfArray = arrayTask.length;
+            for (let i = 0; i < lengOfArray; i++) {
+                // StringTask +='<tr><td scope="col">'+arrayTask[i].STT+'</td><td scope="col">'+arrayTask[i].ten+'</td><td scope="col">'+arrayTask[i].SDT+'</td><td scope="col">'+arrayTask[i].Email+'</td><td scope="col">'+arrayTask[i].MSV
+                //     +'</td><td scope="col">'+arrayTask[i].NS+'</td><td scope="col">'+arrayTask[i].GT+'</td><td scope="col">'+arrayTask[i].QQ+'</td></tr>';
+
+
+                StringTask += '<tr><td >' + arrayTask[i].STT + '</td><td >' +
+                    arrayTask[i].ten + '</td><td >' + arrayTask[i].SDT + '</td><td >' + arrayTask[i].Email +
+                    '</td><td >' + arrayTask[i].MSV + arrayTask[i].NS + '</td><td >' +
+                    arrayTask[i].GT + '</td><td >' + arrayTask[i].QQ + '</td></tr>';
+            }
+
+            TaskTable.innerHTML += StringTask;
+        }
+
+        function AddStudent() {
+            var STT = stt;
+            var fN = document.getElementById("firstName").value;
+            var lN = document.getElementById("lastName").value;
+            var ten = fN + lN;
+            var SDT = document.getElementById("phoneNumber").value;
+            var Email = document.getElementById("email").value;
+            var MSV = document.getElementById("studentCode").value;
+            var NS = document.getElementById("yearOfBirth").value;
+            var GT = document.getElementById("sex");
+            if (document.getElementById('s1').checked) {
+                GT = document.getElementById('s1').value;
+            } else if (document.getElementById('s2').checked) {
+                GT = document.getElementById('s2').value;
+            }
+
+            var QQ = document.getElementById("homeTown").value;
+            var dong = {
+                STT,
+                ten,
+                SDT,
+                Email,
+                MSV,
+                NS,
+                GT,
+                QQ
+            };
+            arrayTask.push(dong);
+            localStorage.setItem("SV", JSON.stringify(arrayTask));
+            DisplayTask();
+
+            stt++;
+
+
+        }
+    </script>
+</body>
+
+</html>
